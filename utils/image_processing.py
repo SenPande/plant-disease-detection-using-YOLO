@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 
 def get_vegetation_index(image, index_type='VARI'):
     """
@@ -39,3 +40,14 @@ def get_vegetation_index(image, index_type='VARI'):
     idx = indices[index_type]()
 
     return cv2.normalize(idx, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+def save_processed_image(image_path, image, vegetation_index, index_type):
+    folder = f'data/test/test_processed/{index_type}'
+    os.makedirs(folder, exist_ok=True)
+
+    print(f"\nProcessando: {image_path} {image.shape}")
+
+    save_path = os.path.join(folder, os.path.basename(image_path).split('.')[0] + f'_{index_type}.jpg')
+
+    if(cv2.imwrite(save_path, vegetation_index)):
+        print(f"\nImmagine indicizzata salvata in {save_path}")
