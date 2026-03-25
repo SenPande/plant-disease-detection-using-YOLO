@@ -15,14 +15,16 @@ def get_vegetation_index(image, index_type='VARI'):
     # Immagine RGB
     if img.shape[2] == 3:
         b, g, r = cv2.split(img)
-        print("Processing RGB image")
+        print("RGB image")
 
-    # TODO : Cambiare in base al tipo di immagine che verrà data dal prof
+    # TODO: Cambiare in base al tipo di immagine che verrà data dal prof
     # Immagine multispettrale (R, G, B, NIR)
     elif img.shape[2] == 4:
         b, g, r, nir = cv2.split(img)
-        print("Processing multispectral image")
+        print("Multispectral image")
 
+    # TODO: Gestire errori indice legati al tipo di immagine data (es. restituire "INVALID" se provo a usare
+    #       NDVI su un'immagine RGB)
     indices = {
         # Indici basati su canali RGB
         'NGRDI': lambda: (g - r) / (g + r + epsilon),       # Normalized Green-Red Difference Index, stato della clorofilla
@@ -41,13 +43,12 @@ def get_vegetation_index(image, index_type='VARI'):
 
     return cv2.normalize(idx, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
-def save_processed_image(image_path, image, vegetation_index, index_type):
-    folder = f'data/test/test_processed/{index_type}'
+def save_processed_image(image_path, vegetation_index, index_type):
+    # TODO: folder = f'data/processed/{index_type}'
+    folder = f'data/test/KAGGLE_processed/{index_type}'
     os.makedirs(folder, exist_ok=True)
-
-    print(f"\nProcessando: {image_path} {image.shape}")
 
     save_path = os.path.join(folder, os.path.basename(image_path).split('.')[0] + f'_{index_type}.jpg')
 
     if(cv2.imwrite(save_path, vegetation_index)):
-        print(f"\nImmagine indicizzata salvata in {save_path}")
+        print(f"Immagine indicizzata salvata in {save_path}")

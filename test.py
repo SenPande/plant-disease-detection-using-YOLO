@@ -1,19 +1,35 @@
 import cv2
 from utils.image_processing import get_vegetation_index, save_processed_image
+import kagglehub
 import os
 
 def main():
+    # TODO: chiedere indice e cartella come argomenti da terminale
+    index = 'ExG'
 
-    test = 'data/test/test.jpg'
-    indice = 'NGRDI'
+    process_dataset(index)
 
-    img = cv2.imread(test)
+def process_dataset(index):
+    # Dataset temporaneo trovato su kaggle per testare funzione di processing
+    # TODO: dataset_path = 'data/raw'
+    dataset_path = kagglehub.dataset_download("ashishjstar/lettuce-diseases")
+    print(f"Dataset scaricato in: {dataset_path}")
 
-    v_indice = get_vegetation_index(img, indice)
+    for root, _, files in os.walk(dataset_path):
+        print(f"\nProcessando la cartella: {os.path.basename(root)} ({len(files)} immagini)")
 
-    print(f"\nIndice {v_indice}")
+        for file in files:
+            image_path = os.path.join(root, file)
+            img = cv2.imread(image_path)
 
-    save_processed_image(test, img, v_indice, indice)
+            print(f"\nProcessing: {os.path.basename(image_path)} {img.shape}")
+
+            vegetation_index = get_vegetation_index(img, index)
+
+            save_processed_image(image_path, vegetation_index, index)
+
+    print("\nDataset processato")
 
 if __name__ == "__main__":
     main()
+
