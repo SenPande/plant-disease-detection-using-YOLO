@@ -1,9 +1,12 @@
 from ultralytics import YOLO
 import cv2
 import os
+import datetime
 
-model = YOLO('/home/involtino2/tirocinio_tesi/models/train_results/Test_ExG_KAGGLE/weights/best.pt')
-model_agrinet = YOLO('/home/involtino2/tirocinio_tesi/models/train_results/Test_ExG_KAGGLE_Agrinet/weights/best.pt')
+optimizer = 'AdamW'
+
+model = YOLO(f'/home/involtino2/tirocinio_tesi/models/train_results/Test_ExG_KAGGLE/{optimizer}/weights/best.pt')
+model_agrinet = YOLO(f'/home/involtino2/tirocinio_tesi/models/train_results/Test_ExG_KAGGLE_Agrinet/{optimizer}/weights/best.pt')
 
 test_images = {
     "bacterial": "/home/involtino2/tirocinio_tesi/data/test/valid/images/bct-12-_ExG_jpg.rf.292f6521ad2d776ebe4e15a0060e12d0.jpg",
