@@ -31,7 +31,7 @@ def main():
         cache = False
     )
 
-    print("Training Agrinet terminato")
+    print("Training Leafnet terminato")
 
 if __name__ == '__main__':
     main()
