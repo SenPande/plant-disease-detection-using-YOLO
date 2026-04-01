@@ -20,7 +20,7 @@ def main():
         optimizer = optimizer,
         lr0 = 0.001,
         momentum = 0.937,
-        epochs = 50,
+        epochs = 100,
         imgsz = 512,
         batch = 2,
         workers = 2,
