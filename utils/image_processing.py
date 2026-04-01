@@ -44,7 +44,7 @@ def get_vegetation_index(image, index_type='VARI'):
     return cv2.normalize(idx, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
 def save_processed_image(image_path, vegetation_index, index_type):
-    # TODO: folder = f'data/processed/{index_type}'
+    # TODO: folder = os.path.join('data', 'processed', index_type)
     folder = f'data/test/KAGGLE_processed/{index_type}'
     os.makedirs(folder, exist_ok=True)
 

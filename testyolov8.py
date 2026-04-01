@@ -7,28 +7,28 @@ def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Utilizzando: {torch.cuda.get_device_name(device)}")
 
-    model = YOLO('/home/involtino2/tirocinio_tesi/models/yolov8_agrinet.yaml')
+    ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    model.load('yolov8s.pt')
+    model = YOLO('yolov8s.pt')
 
-    optimizer = 'Adam'
+    optimizer = 'AdamW'
 
-    results = model.train(
-        data = 'data/test/data.yaml',
+    model.train(
+        data = os.path.join(ROOT, 'data', 'test', 'data.yaml'),
         optimizer = optimizer,
         lr0 = 0.001,
-        epochs = 100,
+        epochs = 10,
         imgsz = 512,
         batch = 2,
         workers = 2,
         device = device,
-        project = os.path.join(os.getcwd(), f'models/train_results/{dt.date.today()}'),
-        name = f'Test_ExG_KAGGLE_Agrinet/{optimizer}',
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}'),
+        name = f'Test_ExG_KAGGLE/{optimizer}',
         plots = True,
         cache = False
     )
 
-    print("Training Agrinet terminato")
+    print("Training terminato")
 
 if __name__ == '__main__':
     main()
