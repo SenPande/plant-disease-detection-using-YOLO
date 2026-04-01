@@ -9,23 +9,24 @@ def main():
 
     ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    model = YOLO('models/yolov8_agrinet.yaml')
+    model = YOLO('models/yolov8_leafnet.yaml')
 
     model.load('yolov8s.pt')
 
-    optimizer = 'AdamW'
+    optimizer = 'SGD'
 
     model.train(
         data = os.path.join(ROOT, 'data', 'test', 'data.yaml'),
         optimizer = optimizer,
         lr0 = 0.001,
-        epochs = 100,
+        momentum = 0.937,
+        epochs = 50,
         imgsz = 512,
         batch = 2,
         workers = 2,
         device = device,
         project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}'),
-        name = f'Test_ExG_KAGGLE_Agrinet/{optimizer}',
+        name = f'Test_ExG_KAGGLE_Leafnet/{optimizer}',
         plots = True,
         cache = False
     )

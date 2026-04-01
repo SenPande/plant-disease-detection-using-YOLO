@@ -17,7 +17,7 @@ def main():
         data = os.path.join(ROOT, 'data', 'test', 'data.yaml'),
         optimizer = optimizer,
         lr0 = 0.001,
-        epochs = 10,
+        epochs = 100,
         imgsz = 512,
         batch = 2,
         workers = 2,
