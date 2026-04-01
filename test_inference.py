@@ -14,6 +14,7 @@ index = 'ExG'
 # TODO: richiamare questa funzione nel main dando come parametro l'indice di vegetazione
 model = YOLO(os.path.join(ROOT, 'models', 'train_results', today, f'Test_{index}_KAGGLE', optimizer, 'weights', 'best.pt'))
 model_agrinet = YOLO(os.path.join(ROOT, 'models', 'train_results', today, f'Test_{index}_KAGGLE_Agrinet', optimizer, 'weights', 'best.pt'))
+model_leafnet = YOLO(os.path.join(ROOT, 'models', 'train_results', today, f'Test_{index}_KAGGLE_Leafnet', optimizer, 'weights', 'best.pt'))
 
 IMAGES_FOLDER = os.path.join('data', 'test', 'valid', 'images')
 test_images = {
@@ -26,8 +27,10 @@ test_images = {
 
 path_std = os.path.join(ROOT, 'models', 'inference_results', today, 'yolov8', index, optimizer)
 path_agrinet = os.path.join(ROOT, 'models', 'inference_results', today, 'yolov8_agrinet', index, optimizer)
+path_leafnet = os.path.join(ROOT, 'models', 'inference_results', today, 'yolov8_leafnet', index, optimizer)
 os.makedirs(path_std, exist_ok=True)
 os.makedirs(path_agrinet, exist_ok=True)
+os.makedirs(path_leafnet, exist_ok=True)
 
 for disease, path in test_images.items():
     results = model.predict(
@@ -38,11 +41,18 @@ for disease, path in test_images.items():
     res_plotted = results.plot()
     cv2.imwrite(os.path.join(path_std, f"result_{disease}.jpg"), res_plotted)
 
-    res_agrinet = model_agrinet.predict(
+    results_agrinet = model_agrinet.predict(
         source=path, 
         conf=0.1,   
         device = 0   
     )[0]
-    res_agrinet_plotted = res_agrinet.plot()
+    res_agrinet_plotted = results_agrinet.plot()
     cv2.imwrite(os.path.join(path_agrinet, f"result_agrinet_{disease}.jpg"), res_agrinet_plotted)
 
+    results_leafnet = model_leafnet.predict(
+        source=path, 
+        conf=0.1,     
+        device = 0 
+    )[0]
+    res_leafnet_plotted = results_leafnet.plot()
+    cv2.imwrite(os.path.join(path_leafnet, f"result_{disease}.jpg"), res_leafnet_plotted)
