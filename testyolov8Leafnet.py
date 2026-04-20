@@ -13,13 +13,13 @@ def main():
 
     model.load('yolov8s.pt')
 
-    optimizer = 'SGD'
+    optimizer = 'AdamW'
 
     model.train(
         data = os.path.join(ROOT, 'data', 'test', 'data.yaml'),
         optimizer = optimizer,
         lr0 = 0.001,
-        momentum = 0.937,
+        #momentum = 0.937,
         epochs = 100,
         imgsz = 512,
         batch = 2,
