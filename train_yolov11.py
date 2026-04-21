@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import torch
 import os
 import datetime as dt
+import sys
 
 def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -9,23 +10,30 @@ def main():
 
     ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    img_type = 'rgb'
+    if len(sys.argv) < 2:
+        print("\nMISSING ARGS: Define dataset type for the training\n")
+        return None
 
-    model = YOLO('yolo11n.pt') # cambiare in 11s dopo test pseudocolori
+    data_type = sys.argv[1].upper()
+    print(f"Training on {data_type} dataset")
 
-    epochs = 100
+    model_scale = 'n'
+
+    model = YOLO(f'yolo11{model_scale}.pt') # cambiare in 11s dopo test pseudocolori
+
+    epochs = 50
 
     model.train(
-        data = os.path.join(ROOT, 'data', 'processed', img_type, 'data.yaml'),
+        data = os.path.join(ROOT, 'data', 'processed', 'Dataset pomodori', data_type, f'{data_type}_data.yaml'),
         epochs = epochs,
         imgsz = 640,
         batch = 16,
         workers = 2,
         device = device,
         project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}'),
-        name = f'{img_type}_{epochs}',
+        name = f'{data_type}_{model_scale}_{epochs}eps',
         plots = True,
-        cache = False
+        cache = True
     )
 
     print("Training terminato")
