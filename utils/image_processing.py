@@ -17,7 +17,7 @@ def get_vegetation_index(image, index_type='VARI'):
         b, g, r = cv2.split(img)
         print("RGB image")
 
-    # TODO: Cambiare in base al tipo di immagine che verrà data dal prof
+    # TODO: Cambiare in base al tipo di immagine
     # Immagine multispettrale (R, G, B, NIR)
     elif img.shape[2] == 4:
         b, g, r, nir = cv2.split(img)
