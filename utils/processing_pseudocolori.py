@@ -30,8 +30,12 @@ def combine_color_bands(source_dir, dest_dir, data_type, red, green, blue):
             img_R = cv2.imread(path_R, cv2.IMREAD_GRAYSCALE)
             img_G = cv2.imread(path_G, cv2.IMREAD_GRAYSCALE)
             img_B = cv2.imread(path_B, cv2.IMREAD_GRAYSCALE)
+
+            rnorm = cv2.normalize(img_R, None, 0, 255, cv2.NORM_MINMAX)
+            gnorm = cv2.normalize(img_G, None, 0, 255, cv2.NORM_MINMAX)
+            bnorm = cv2.normalize(img_B, None, 0, 255, cv2.NORM_MINMAX)
             
-            merged_img = cv2.merge([img_B, img_G, img_R])
+            merged_img = cv2.merge([bnorm, gnorm, rnorm])
             
             save_path = os.path.join(output_dir, f"{base_name}.png")
             cv2.imwrite(save_path, merged_img)
