@@ -17,7 +17,7 @@ def main():
     data_type = sys.argv[1].upper()
     print(f"Training on {data_type} dataset")
 
-    model_scale = 'n'
+    model_scale = 's'
 
     model = YOLO(f'yolo11{model_scale}.pt') # cambiare in 11s dopo test pseudocolori
 

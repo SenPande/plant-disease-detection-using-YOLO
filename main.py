@@ -1,8 +1,8 @@
-import cv2
 import os
 from utils.process_dataset import split_dataset
 import sys
 from utils.processing_pseudocolori import combine_color_bands, use_COLOR_image
+from utils.image_processing import save_index_images
 
 def main():
     color_bands = {
@@ -25,7 +25,7 @@ def main():
     match data_type:
         case 'RGB':
             print("Processing RGB dataset\n")
-            
+
             use_COLOR_image(source_dir, dest_dir)
 
         case 'CIR':
@@ -77,8 +77,14 @@ def main():
                                 color_bands["red"], 
                                 color_bands["blue"], 
                                 color_bands["green"])
-             
+        
+        case _:
+            print(f"Processing {data_type} vegetation index\n")
 
+            save_index_images(source_dir,
+                              dest_dir,
+                              data_type)
+            
     split_dataset(data_type)
 
 if __name__ == "__main__":
