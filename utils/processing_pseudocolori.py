@@ -75,3 +75,32 @@ def use_COLOR_image(source_dir, dest_dir):
     print(f"{skipped} images already processed (skipped)")
     print(f"Total images: {saved + skipped}")
 
+
+def merge_datasets(source_dir, dest_dir, data_type, channel, dataset_to_merge):
+    output_dir = os.path.join(dest_dir, f'{dataset_to_merge}_{data_type}', 'all_images')    
+
+    saved = 0
+    skipped = 0
+
+    dataset_dir = os.path.join('data', 'processed', 'Dataset pomodori', dataset_to_merge, 'all_images')
+    shutil.copytree(dataset_dir, output_dir)
+
+    search_pattern_single_channel = os.path.join(source_dir, f"*@Image_{channel}.png")
+    files_single_channel = glob.glob(search_pattern_single_channel)
+
+    for f in files_single_channel:
+        base_name = os.path.basename(f).replace(f"@Image_{channel}.png", f"_{data_type}")
+        save_path = os.path.join(output_dir, f"{base_name}.png")
+        
+        if os.path.exists(save_path):
+            print(f"{base_name} already saved")
+            skipped+=1
+            continue
+
+        shutil.copy(f, save_path)
+        saved+=1
+        print(f"Saving {channel} image {base_name}")
+
+    print(f"\nSaved {saved} images in {output_dir}")
+    print(f"{skipped} images already processed (skipped)")
+    print(f"Total images: {saved + skipped}: {len(os.listdir(dataset_dir))} {dataset_to_merge} and {len(files_single_channel)} {channel}")

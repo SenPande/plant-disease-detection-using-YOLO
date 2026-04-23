@@ -33,7 +33,12 @@ def split_dataset(img_type):
             for f in files:
                 shutil.copy(f"{imgs_path}/{f}.png", f"{dest_path}/{split}/images/{f}.png")
 
-                label_src = f"{labels_path}/{f}.txt"
+                if f.endswith("_G", "_R", "B"):
+                    original_f = f[:-2] 
+                    label_src = f"{labels_path}/{original_f}.txt"
+                else:
+                    label_src = f"{labels_path}/{f}.txt"
+            
                 if os.path.exists(label_src):
                     shutil.copy(label_src, f"{dest_path}/{split}/labels/{f}.txt")
 

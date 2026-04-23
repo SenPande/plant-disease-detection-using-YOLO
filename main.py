@@ -1,14 +1,14 @@
 import os
 from utils.process_dataset import split_dataset
 import sys
-from utils.processing_pseudocolori import combine_color_bands, use_COLOR_image
+from utils.processing_pseudocolori import combine_color_bands, use_COLOR_image, merge_datasets
 from utils.image_processing import save_index_images
 
 def main():
     color_bands = {
-        "blue": "460",
-        "green": "540",
-        "red": "630",
+        "B": "460",
+        "G": "540",
+        "R": "630",
         "NIR": "850",
         "NIR_WATER": "980"
     }
@@ -29,55 +29,68 @@ def main():
             use_COLOR_image(source_dir, dest_dir)
 
         case 'CIR':
-            print(f"Processing CIR dataset\n")
+            print("Processing CIR dataset\n")
 
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'CIR', 
                                 color_bands["NIR"], 
-                                color_bands["red"], 
-                                color_bands["green"])
+                                color_bands["R"], 
+                                color_bands["G"])
 
         case 'ERGB':
-            print(f"Processing ERGB dataset\n")
+            print("Processing ERGB dataset\n")
 
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'ERGB', 
-                                color_bands["red"], 
-                                color_bands["green"], 
-                                color_bands["blue"])        
+                                color_bands["R"], 
+                                color_bands["G"], 
+                                color_bands["B"])        
             
         case 'WATER':
-            print(f"Processing WATER dataset\n")
+            print("Processing WATER dataset\n")
 
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'WATER', 
                                 color_bands["NIR_WATER"], 
-                                color_bands["red"], 
-                                color_bands["green"])   
+                                color_bands["R"], 
+                                color_bands["G"])   
 
         case 'GBR':
-            print(f"Processing GBR dataset\n")
+            print("Processing GBR dataset\n")
 
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'GBR', 
-                                color_bands["green"], 
-                                color_bands["blue"], 
-                                color_bands["red"])  
+                                color_bands["G"], 
+                                color_bands["B"], 
+                                color_bands["R"])  
             
         case 'RBG':
-            print(f"Processing RBG dataset\n")
+            print("Processing RBG dataset\n")
 
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'RBG', 
-                                color_bands["red"], 
-                                color_bands["blue"], 
-                                color_bands["green"])
-        
+                                color_bands["R"], 
+                                color_bands["B"], 
+                                color_bands["G"])
+            
+        case 'G' | 'R' | 'B':
+            dataset_to_merge = sys.argv[2].upper()
+
+            print(f'Merging {data_type} single channel and {dataset_to_merge} datasets')
+
+            merge_datasets(source_dir,
+                           dest_dir,
+                           data_type,
+                           color_bands[data_type],
+                           dataset_to_merge)
+            
+            data_type = f'{dataset_to_merge}_{data_type}'
+            
         case _:
             print(f"Processing {data_type} vegetation index\n")
 

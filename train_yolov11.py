@@ -19,7 +19,7 @@ def main():
 
     model_scale = 's'
 
-    model = YOLO(f'yolo11{model_scale}.pt') # cambiare in 11s dopo test pseudocolori
+    model = YOLO(f'yolo11{model_scale}.pt')
 
     epochs = 50
 
@@ -30,7 +30,7 @@ def main():
         batch = 16,
         workers = 2,
         device = device,
-        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}'),
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', 'yolo11'),
         name = f'{data_type}_{model_scale}_{epochs}eps',
         plots = True,
         cache = True
