@@ -2,8 +2,6 @@ import os
 import random
 import shutil
 
-
-
 def split_dataset(img_type):
     imgs_path = f"data/processed/Dataset pomodori/{img_type}/all_images"
     labels_path = "data/raw/Dataset pomodori/labels"
@@ -33,7 +31,7 @@ def split_dataset(img_type):
             for f in files:
                 shutil.copy(f"{imgs_path}/{f}.png", f"{dest_path}/{split}/images/{f}.png")
 
-                if f.endswith("_G", "_R", "B"):
+                if f.endswith("_G" or "_R" or "_B"):
                     original_f = f[:-2] 
                     label_src = f"{labels_path}/{original_f}.txt"
                 else:

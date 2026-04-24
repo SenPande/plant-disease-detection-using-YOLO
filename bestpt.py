@@ -18,8 +18,8 @@ def main():
     print(f"Training on {data_type} dataset")
 
     model_scale = 's'
-
-    model = YOLO(f'yolo11{model_scale}.pt')
+    
+    model = YOLO('models/train_results/2026-04-23/yolo11/ERGB_s_50eps/weights/best.pt')
 
     epochs = 50
 
