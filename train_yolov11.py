@@ -30,7 +30,7 @@ def main():
         batch = 16,
         workers = 2,
         device = device,
-        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', 'yolo11'),
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}'),
         name = f'{data_type}_{model_scale}_{epochs}eps',
         plots = True,
         cache = True

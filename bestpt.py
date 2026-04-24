@@ -19,7 +19,7 @@ def main():
 
     model_scale = 's'
     
-    model = YOLO('models/train_results/2026-04-23/yolo11/ERGB_s_50eps/weights/best.pt')
+    model = YOLO('models/train_results/2026-04-23/ERGB_s_50eps/weights/best.pt')
 
     epochs = 50
 

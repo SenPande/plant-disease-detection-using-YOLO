@@ -82,6 +82,7 @@ def merge_datasets(source_dir, dest_dir, data_type, channel, dataset_to_merge):
     saved = 0
     skipped = 0
 
+    print(f"\nCoping {dataset_to_merge} into {output_dir}\n")
     dataset_dir = os.path.join('data', 'processed', 'Dataset pomodori', dataset_to_merge, 'all_images')
     shutil.copytree(dataset_dir, output_dir)
 
@@ -103,4 +104,4 @@ def merge_datasets(source_dir, dest_dir, data_type, channel, dataset_to_merge):
 
     print(f"\nSaved {saved} images in {output_dir}")
     print(f"{skipped} images already processed (skipped)")
-    print(f"Total images: {saved + skipped}: {len(os.listdir(dataset_dir))} {dataset_to_merge} and {len(files_single_channel)} {channel}")
+    print(f"{saved + skipped} total images: {len(os.listdir(dataset_dir))} {dataset_to_merge} and {len(files_single_channel)} {channel}")
