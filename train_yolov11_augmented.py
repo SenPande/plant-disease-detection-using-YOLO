@@ -30,13 +30,20 @@ def main():
         batch = 16,
         workers = 2,
         device = device,
-        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', 'focal_loss'),
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', 'augmented'),
         name = f'{data_type}_{model_scale}_{epochs}eps',
         plots = True,
         cache = True,
-        dfl=1.5,
-        box=7.5,
-        cls=2.0
+        hsv_h=0.015,  
+        hsv_s=0.7,    
+        hsv_v=0.4,    
+        degrees=90.0, 
+        translate=0.1,
+        scale=0.2,    
+        shear=15.0,   
+        flipud=0.5,   
+        fliplr=0.5,   
+        mosaic=1.0   
     )
 
 if __name__ == '__main__':
