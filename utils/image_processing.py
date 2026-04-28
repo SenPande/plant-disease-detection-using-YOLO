@@ -20,7 +20,13 @@ def get_vegetation_index(image, index_type):
 
     idx = indices[index_type]()
 
-    return cv2.normalize(idx, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+    p_min, p_max = np.percentile(idx, (1, 99))
+
+    idx_clipped = np.clip(idx, p_min, p_max)
+
+    idx_normalized = cv2.normalize(idx_clipped, None, 0, 255, cv2.NORM_MINMAX)
+
+    return idx_normalized.astype(np.uint8)
 
 
 def save_index_images(source_dir, dest_dir, index_type):
