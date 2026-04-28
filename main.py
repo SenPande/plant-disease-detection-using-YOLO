@@ -14,7 +14,7 @@ def main():
     }
 
     source_dir = os.path.join('data', 'raw', 'Dataset pomodori', 'images')
-    dest_dir = os.path.join('data', 'processed', 'Dataset pomodori')
+    dest_dir = os.path.join('data', 'processed', 'Dataset pomodori', 'Multi class')
 
     if len(sys.argv) < 2:
         print("MISSING ARGS: Define dataset type")

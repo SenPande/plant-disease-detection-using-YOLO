@@ -83,7 +83,7 @@ def merge_datasets(source_dir, dest_dir, data_type, channel, dataset_to_merge):
     skipped = 0
 
     print(f"\nCoping {dataset_to_merge} into {output_dir}\n")
-    dataset_dir = os.path.join('data', 'processed', 'Dataset pomodori', dataset_to_merge, 'all_images')
+    dataset_dir = os.path.join('data', 'processed', 'Dataset pomodori', 'Multi class', dataset_to_merge, 'all_images')
     shutil.copytree(dataset_dir, output_dir)
 
     search_pattern_single_channel = os.path.join(source_dir, f"*@Image_{channel}.png")

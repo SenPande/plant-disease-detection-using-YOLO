@@ -10,12 +10,13 @@ def main():
 
     ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         print("\nMISSING ARGS: Define dataset type for the training\n")
         return None
 
-    data_type = sys.argv[1].upper()
-    print(f"Training on {data_type} dataset")
+    data_type = sys.argv[1]
+    data_name = sys.argv[2].upper()
+    print(f"Training on {data_type} Class {data_name} dataset")
 
     model_scale = 's'
 
@@ -24,14 +25,14 @@ def main():
     epochs = 150
 
     model.train(
-        data = os.path.join(ROOT, 'data', 'processed', 'Dataset pomodori', data_type, f'{data_type}_data.yaml'),
+        data = os.path.join(ROOT, 'data', 'processed', 'Dataset pomodori', f'{data_type} Class', data_name, f'{data_name}_data.yaml'),
         epochs = epochs,
         imgsz = 640,
         batch = 16,
         workers = 2,
         device = device,
-        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', 'normal'),
-        name = f'{data_type}_{model_scale}_{epochs}eps',
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', f'{data_type} Class', 'normal'),
+        name = f'{data_name}_{model_scale}_{epochs}eps',
         plots = True,
         cache = True
     )

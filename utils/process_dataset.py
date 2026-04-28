@@ -3,9 +3,9 @@ import random
 import shutil
 
 def split_dataset(img_type):
-    imgs_path = f"data/processed/Dataset pomodori/{img_type}/all_images"
+    imgs_path = f"data/processed/Dataset pomodori/Multi class/{img_type}/all_images"
     labels_path = "data/raw/Dataset pomodori/labels"
-    dest_path = f"data/processed/Dataset pomodori/{img_type}"
+    dest_path = f"data/processed/Dataset pomodori/Multi class/{img_type}"
 
     check_dir = f"{dest_path}/train/images"
     if os.path.exists(check_dir) and len(os.listdir(check_dir)) > 0:
