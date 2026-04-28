@@ -25,13 +25,13 @@ def main():
     epochs = 150
 
     model.train(
-        data = os.path.join(ROOT, 'data', 'processed', 'Dataset pomodori', f'{data_type} Class', data_name, f'{data_name}_data.yaml'),
+        data = os.path.join(ROOT, 'data', 'processed', 'Dataset pomodori', f'{data_type} class', data_name, f'{data_name}_data.yaml'),
         epochs = epochs,
         imgsz = 640,
         batch = 16,
         workers = 2,
         device = device,
-        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', f'{data_type} Class', 'normal'),
+        project = os.path.join(ROOT, 'models', 'train_results', f'{dt.date.today()}', f'{data_type} class', 'normal'),
         name = f'{data_name}_{model_scale}_{epochs}eps',
         plots = True,
         cache = True
