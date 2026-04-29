@@ -10,7 +10,7 @@ def main():
         "G": "540",
         "R": "630",
         "NIR": "850",
-        "NIR_WATER": "980"
+        "NIR_F": "980"
     }
 
     source_dir = os.path.join('data', 'raw', 'Dataset pomodori', 'images')
@@ -28,16 +28,6 @@ def main():
 
             use_COLOR_image(source_dir, dest_dir)
 
-        case 'CIR':
-            print("Processing CIR dataset\n")
-
-            combine_color_bands(source_dir, 
-                                dest_dir, 
-                                'CIR', 
-                                color_bands["NIR"], 
-                                color_bands["R"], 
-                                color_bands["G"])
-
         case 'ERGB':
             print("Processing ERGB dataset\n")
 
@@ -47,16 +37,6 @@ def main():
                                 color_bands["R"], 
                                 color_bands["G"], 
                                 color_bands["B"])        
-            
-        case 'WATER':
-            print("Processing WATER dataset\n")
-
-            combine_color_bands(source_dir, 
-                                dest_dir, 
-                                'WATER', 
-                                color_bands["NIR_WATER"], 
-                                color_bands["R"], 
-                                color_bands["G"])   
 
         case 'GBR':
             print("Processing GBR dataset\n")
