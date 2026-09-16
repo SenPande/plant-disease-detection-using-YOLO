@@ -18,19 +18,17 @@ def main():
 
     if len(sys.argv) < 2:
         print("MISSING ARGS: Define dataset type")
-        return None
+        sys.exit(1)
 
     data_type = sys.argv[1].upper()
 
     match data_type:
         case 'RGB':
             print("Processing RGB dataset\n")
-
             use_COLOR_image(source_dir, dest_dir)
 
         case 'ERGB':
             print("Processing ERGB dataset\n")
-
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'ERGB', 
@@ -40,7 +38,6 @@ def main():
 
         case 'GBR':
             print("Processing GBR dataset\n")
-
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'GBR', 
@@ -50,7 +47,6 @@ def main():
             
         case 'RBG':
             print("Processing RBG dataset\n")
-
             combine_color_bands(source_dir, 
                                 dest_dir, 
                                 'RBG', 
@@ -60,9 +56,7 @@ def main():
             
         case 'G' | 'R' | 'B':
             dataset_to_merge = sys.argv[2].upper()
-
             print(f'Merging {data_type} single channel and {dataset_to_merge} datasets')
-
             merge_datasets(source_dir,
                            dest_dir,
                            data_type,
