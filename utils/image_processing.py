@@ -3,9 +3,11 @@ import numpy as np
 import os
 import glob
 
+SUPPORTED_INDICES = ('NGRDI', 'EXG')
+
 def get_vegetation_index(image, index_type):
     img = image.astype(np.float32) / 255.0
-    epsilon = 1e-6 
+    epsilon = 1e-6
 
     b, g, r = cv2.split(img)
 
@@ -13,6 +15,7 @@ def get_vegetation_index(image, index_type):
         'NGRDI': lambda: (g - r) / (g + r + epsilon),       # Normalized Green-Red Difference Index, stato della clorofilla
         'EXG': lambda: 2 * g - r - b,                       # Excess Green Index, distingue vegetazione da suolo e altri oggetti
     }
+    assert set(indices) == set(SUPPORTED_INDICES)
 
     if index_type not in indices:
         print(f"\nIndice non supportato")
@@ -30,6 +33,8 @@ def get_vegetation_index(image, index_type):
 
 
 def save_index_images(source_dir, dest_dir, index_type):
+    """Calcola l'indice di vegetazione per ogni immagine a colori in source_dir e salva
+    il risultato in dest_dir/index_type/all_images"""
     output_dir = os.path.join(dest_dir, index_type, 'all_images')
     os.makedirs(output_dir, exist_ok=True)
 
@@ -50,6 +55,10 @@ def save_index_images(source_dir, dest_dir, index_type):
         
         image = cv2.imread(img)
         index = get_vegetation_index(image, index_type)
+
+        if index is None:
+            print(f"Salto {base_name}: impossibile calcolare l'indice '{index_type}'")
+            continue
 
         if(cv2.imwrite(save_path, index)):
             print(f"Immagine indicizzata salvata in {save_path}")
