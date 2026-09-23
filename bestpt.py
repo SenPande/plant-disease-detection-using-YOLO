@@ -5,6 +5,7 @@ import torch
 from ultralytics import YOLO
 
 DEFAULT_DATASET_DIR = os.path.join('data', 'processed', 'Dataset pomodori', 'Multi class')
+# !!!!!!!!!!!!!!!! Cambiare con data e modello che si intende usare come checkpoint default
 DEFAULT_WEIGHTS = 'models/train_results/2026-04-23/ERGB_s_50eps/weights/best.pt'
 DEFAULT_PROJECT_DIR = os.path.join('models', 'train_results')
 
